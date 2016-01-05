@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Note</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_hint">在此输入标题</string>
+    <string name="content_hint">在此输入笔记</string>
+    <string name="save">✔</string>
+    <string name="other">┇</string>
+    <string name="note_name">个人笔记</string>
+    <string name="update_tag">修改标签</string>
+    <string name="add_new_tag">添加新标签</string>
+    <string name="add">添加</string>
+    <string name="my_tag">我的标签</string>
+
+</resources>
