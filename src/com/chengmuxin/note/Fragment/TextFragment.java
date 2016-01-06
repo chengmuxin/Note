@@ -2,11 +2,8 @@ package com.chengmuxin.note.Fragment;
 
 import android.app.Fragment;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -24,12 +21,26 @@ public class TextFragment extends Fragment implements OnClickListener {
 	private TextView title, content;
 	public static final String PAR_KEY = "com.chengmuxin.note.contentPar";
 
-	@Override
+	/*@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		return inflater.inflate(R.layout.fragment_content_text, container,
-				false);
-	}
+		View view = inflater.inflate(R.layout.fragment_content_text, container, false);
+		view.setOnTouchListener(new OnTouchListener() {
+			@Override
+			public boolean onTouch(View v, MotionEvent ev) {
+				switch (ev.getActionMasked()) {
+				case MotionEvent.ACTION_DOWN:
+					Toast.makeText(getActivity(), "°´ÏÂ", Toast.LENGTH_SHORT).show();
+					break;
+
+				default:
+					break;
+				}
+				return false;
+			}
+		});
+		return view;
+	}*/
 
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
