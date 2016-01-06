@@ -13,5 +13,6 @@
     <string name="add_new_tag">添加新标签</string>
     <string name="add">添加</string>
     <string name="my_tag">我的标签</string>
+    <string name="search_note">搜索笔记</string>
 
 </resources>

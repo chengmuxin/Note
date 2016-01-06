@@ -16,16 +16,17 @@ import android.widget.ListView;
 import com.chengmuxin.note.R;
 import com.chengmuxin.note.DB.NoteDB;
 import com.chengmuxin.note.activity.ContentActivity;
+import com.chengmuxin.note.activity.FindActivity;
 import com.chengmuxin.note.activity.NewActivity;
 import com.chengmuxin.note.model.Note;
 import com.chengmuxin.note.util.NoteAdapter;
 
-public class MainFragment extends Fragment {
+public class MainFragment extends Fragment implements OnClickListener {
 	private NoteDB noteDB;
 	private ListView listView;
 	private List<Note> list;
 	private NoteAdapter adapter;
-	private ImageButton add;
+	private ImageButton find, add;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -58,12 +59,23 @@ public class MainFragment extends Fragment {
 	private void init() {
 		noteDB = NoteDB.getInstance(getActivity());
 		listView = (ListView) getActivity().findViewById(R.id.main_list);
+		find = (ImageButton) getActivity().findViewById(R.id.main_find);
+		find.setOnClickListener(this);
 		add = (ImageButton) getActivity().findViewById(R.id.main_add);
-		add.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				NewActivity.actionActivity(getActivity());
-			}
-		});
+		add.setOnClickListener(this);
+	}
+
+	@Override
+	public void onClick(View v) {
+		switch (v.getId()) {
+		case R.id.main_find:
+			FindActivity.actionActivity(getActivity());
+			break;
+		case R.id.main_add:
+			NewActivity.actionActivity(getActivity());
+			break;
+		default:
+			break;
+		}
 	}
 }

@@ -111,6 +111,39 @@ public class NoteDB {
 	}
 
 	/**
+	 * 查询Note信息
+	 */
+	public List<Note> selectNoteWhereTitle(String str) {
+		List<Note> list = new ArrayList<Note>();
+		Cursor cursor = db.rawQuery("select * from note where title like ?",
+				new String[] { str });
+		if (cursor.moveToFirst()) {
+			do {
+				Note note = new Note();
+				note.set_id(cursor.getInt(cursor.getColumnIndex("_id")));
+				note.setTitle(cursor.getString(cursor.getColumnIndex("title")));
+				note.setContent(cursor.getString(cursor
+						.getColumnIndex("content")));
+				note.setTag(cursor.getString(cursor.getColumnIndex("tag")));
+				note.setCreatedate(cursor.getString(cursor
+						.getColumnIndex("createdate")));
+				note.setCreatetime(cursor.getString(cursor
+						.getColumnIndex("createtime")));
+				note.setModifydate(cursor.getString(cursor
+						.getColumnIndex("modifydate")));
+				note.setModifytime(cursor.getString(cursor
+						.getColumnIndex("modifytime")));
+				note.setLocaldate(cursor.getString(cursor
+						.getColumnIndex("localdate")));
+				note.setLocaltime(cursor.getString(cursor
+						.getColumnIndex("localtime")));
+				list.add(note);
+			} while (cursor.moveToNext());
+		}
+		return list;
+	}
+
+	/**
 	 * 修改数据库中的Note实例
 	 */
 	public void updateNote(Note note) {
@@ -162,5 +195,5 @@ public class NoteDB {
 		}
 		return list;
 	}
-	
+
 }

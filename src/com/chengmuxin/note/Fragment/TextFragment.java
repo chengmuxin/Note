@@ -1,12 +1,19 @@
 package com.chengmuxin.note.Fragment;
 
+import android.app.AlertDialog;
 import android.app.Fragment;
+import android.content.DialogInterface;
+import android.graphics.Point;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.chengmuxin.note.R;
@@ -21,26 +28,16 @@ public class TextFragment extends Fragment implements OnClickListener {
 	private NoteDB noteDB;
 	private ImageButton back, update, delete;
 	private TextView title, content;
+	private ScrollView scroll;
+	private LinearLayout top, bottom;
+	private Point down = new Point(), up = new Point();
 	public static final String PAR_KEY = "com.chengmuxin.note.contentPar";
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		View view = inflater.inflate(R.layout.fragment_content_text, container, false);
-		/*view.setOnTouchListener(new OnTouchListener() {
-			@Override
-			public boolean onTouch(View v, MotionEvent ev) {
-				switch (ev.getActionMasked()) {
-				case MotionEvent.ACTION_DOWN:
-					Toast.makeText(getActivity(), "按下", Toast.LENGTH_SHORT).show();
-					break;
-
-				default:
-					break;
-				}
-				return false;
-			}
-		});*/
+		View view = inflater.inflate(R.layout.fragment_content_text, container,
+				false);
 		return view;
 	}
 
@@ -66,6 +63,39 @@ public class TextFragment extends Fragment implements OnClickListener {
 		title.setText(note.getTitle());
 		content = (TextView) getActivity().findViewById(R.id.text_content);
 		content.setText(note.getContent());
+		top = (LinearLayout) getActivity().findViewById(R.id.text_top);
+		top.setVisibility(View.VISIBLE);
+		bottom = (LinearLayout) getActivity().findViewById(R.id.text_bottom);
+		bottom.setVisibility(View.VISIBLE);
+		scroll = (ScrollView) getActivity().findViewById(R.id.text_scroll);
+		scroll.setOnTouchListener(new OnTouchListener() {
+			@Override
+			public boolean onTouch(View v, MotionEvent ev) {
+				switch (ev.getAction()) {
+				case MotionEvent.ACTION_DOWN:
+					down.x = (int) ev.getX();
+					down.y = (int) ev.getY();
+					break;
+				case MotionEvent.ACTION_MOVE:
+					break;
+				case MotionEvent.ACTION_UP:
+					up.x = (int) ev.getX();
+					up.y = (int) ev.getY();
+					if (up.y > down.y) { // 向下滑动
+						top.setVisibility(View.VISIBLE);
+						bottom.setVisibility(View.VISIBLE);
+					} else { // 向上滑动
+						top.setVisibility(View.GONE);
+						bottom.setVisibility(View.GONE);
+					}
+					break;
+
+				default:
+					break;
+				}
+				return false;
+			}
+		});
 	}
 
 	@Override
@@ -81,10 +111,26 @@ public class TextFragment extends Fragment implements OnClickListener {
 					.addToBackStack(null).commit();
 			break;
 		case R.id.text_delete:
-			noteDB.deleteNotes(note);
-			// 待添加删除确认操作
-			MainActivity.actionActivity(getActivity());
-			getActivity().finish();
+			AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
+			dialog.setTitle("Note");
+			dialog.setMessage("您确定删除“" + note.getTitle() + "”吗？");
+			dialog.setCancelable(false);
+			dialog.setPositiveButton("确定",
+					new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							noteDB.deleteNotes(note);
+							MainActivity.actionActivity(getActivity());
+							getActivity().finish();
+						}
+					});
+			dialog.setNegativeButton("取消",
+					new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+						}
+					});
+			dialog.show();
 			break;
 		default:
 			break;

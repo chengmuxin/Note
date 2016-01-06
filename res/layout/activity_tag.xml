@@ -7,13 +7,14 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:background="#1C86EE"
         android:orientation="horizontal" >
 
         <ImageButton
             android:id="@+id/tag_back"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:background="#BFBFBF"
+            android:background="#1C86EE"
             android:src="@drawable/back" />
 
         <TextView
@@ -33,7 +34,7 @@
             android:id="@+id/tag_save"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:background="#BFBFBF"
+            android:background="#1C86EE"
             android:text="@string/save"
             android:textSize="20sp" />
     </LinearLayout>
