@@ -33,7 +33,7 @@ public class ContentActivity extends Activity {
 				.replace(R.id.activity_content, new TextFragment()).commit();
 	}
 
-	/*@Override
+	@Override
 	public boolean dispatchTouchEvent(MotionEvent ev) {
 		if (findViewById(R.layout.fragment_content_text) != null) {
 			switch (ev.getActionMasked()) {
@@ -46,5 +46,5 @@ public class ContentActivity extends Activity {
 			}
 		}
 		return super.dispatchTouchEvent(ev);
-	}*/
+	}
 }
