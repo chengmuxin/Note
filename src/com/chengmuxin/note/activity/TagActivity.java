@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.chengmuxin.note.R;
 import com.chengmuxin.note.DB.NoteDB;
@@ -22,9 +23,10 @@ import com.chengmuxin.note.util.TagAdapter;
 public class TagActivity extends Activity implements OnClickListener {
 
 	private NoteDB noteDB;
-	private ImageButton back;
+	private ImageButton back, delete;
 	private Button save, add;
 	private EditText edit;
+	private TextView myTag;
 	private ListView listView;
 	private List<String> list;
 	private TagAdapter adapter;
@@ -47,6 +49,9 @@ public class TagActivity extends Activity implements OnClickListener {
 		add = (Button) findViewById(R.id.tag_add);
 		add.setOnClickListener(this);
 		edit = (EditText) findViewById(R.id.tag_edit);
+		myTag = (TextView) findViewById(R.id.tag_myTag);
+		delete = (ImageButton) findViewById(R.id.tag_delete);
+		delete.setOnClickListener(this);
 		listView = (ListView) findViewById(R.id.tag_list);
 		list = noteDB.selectTags();
 		adapter = new TagAdapter(this, R.layout.activity_taglist, list);
@@ -56,7 +61,9 @@ public class TagActivity extends Activity implements OnClickListener {
 			public void onItemClick(AdapterView<?> arg0, View arg1,
 					int position, long arg3) {
 				tag = list.get(position);
-				edit.setText(tag);
+				myTag.setText(tag);
+				myTag.setVisibility(View.VISIBLE);
+				delete.setVisibility(View.VISIBLE);
 			}
 		});
 	}
@@ -79,9 +86,20 @@ public class TagActivity extends Activity implements OnClickListener {
 			if (tagStr != null) {
 				noteDB.insertTag(tagStr);
 				tag = tagStr;
+				myTag.setText(tagStr);
+				myTag.setVisibility(View.VISIBLE);
+				delete.setVisibility(View.VISIBLE);
+				list = noteDB.selectTags();
+				adapter = new TagAdapter(this, R.layout.activity_taglist, list);
+				listView.setAdapter(adapter);
 			}
 			break;
-
+		case R.id.tag_delete:
+			myTag.setText("");
+			tag = null;
+			myTag.setVisibility(View.INVISIBLE);
+			delete.setVisibility(View.INVISIBLE);
+			break;
 		default:
 			break;
 		}

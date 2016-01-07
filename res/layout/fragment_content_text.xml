@@ -16,6 +16,7 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:background="#1C86EE"
+            android:contentDescription="@string/imagebutton"
             android:src="@drawable/back" />
 
         <TextView
@@ -54,11 +55,12 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="#888888" />
+            android:background="#888888"
+            android:contentDescription="@string/imagebutton" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_weight="1" >
 
             <ImageButton
@@ -67,6 +69,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="#FFFFFF"
+                android:contentDescription="@string/imagebutton"
                 android:src="@drawable/update" />
 
             <ImageButton
@@ -75,6 +78,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="#FFFFFF"
+                android:contentDescription="@string/imagebutton"
                 android:src="@drawable/delete" />
         </LinearLayout>
     </LinearLayout>

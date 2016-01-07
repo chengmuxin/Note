@@ -31,6 +31,14 @@
         </activity>
         <activity android:name=".activity.FindActivity" >
         </activity>
+        <activity
+            android:name=".dialog.MainOtherDialog"
+            android:theme="@android:style/Theme.Dialog" >
+        </activity>
+        <activity
+            android:name=".dialog.MainOtherOrderDialog"
+            android:theme="@android:style/Theme.Dialog" >
+        </activity>
     </application>
 
 </manifest>

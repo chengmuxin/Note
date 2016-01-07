@@ -14,5 +14,13 @@
     <string name="add">添加</string>
     <string name="my_tag">我的标签</string>
     <string name="search_note">搜索笔记</string>
+    <string name="imagebutton">ImageButton</string>
+    <string name="order">排序</string>
+    <string name="options">查看选项</string>
+    <string name="by_modify_time">按修改时间</string>
+    <string name="by_create_time">按创建时间</string>
+    <string name="by_title">按标题</string>
+    <string name="by_local_time">按本地访问时间</string>
+    <string name="cancel">取消</string>
 
 </resources>

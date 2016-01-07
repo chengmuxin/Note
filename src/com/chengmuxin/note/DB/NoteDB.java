@@ -116,7 +116,7 @@ public class NoteDB {
 	public List<Note> selectNoteWhereTitle(String str) {
 		List<Note> list = new ArrayList<Note>();
 		Cursor cursor = db.rawQuery("select * from note where title like ?",
-				new String[] { str });
+				new String[] { "%" + str + "%" });
 		if (cursor.moveToFirst()) {
 			do {
 				Note note = new Note();
@@ -188,6 +188,21 @@ public class NoteDB {
 	public List<String> selectTags() {
 		List<String> list = new ArrayList<String>();
 		Cursor cursor = db.rawQuery("select * from tag", null);
+		if (cursor.moveToFirst()) {
+			do {
+				list.add(cursor.getString(cursor.getColumnIndex("tagname")));
+			} while (cursor.moveToNext());
+		}
+		return list;
+	}
+
+	/**
+	 * ≤È—ØTag–≈œ¢
+	 */
+	public List<String> selectTagWhereTag(String str) {
+		List<String> list = new ArrayList<String>();
+		Cursor cursor = db.rawQuery("select * from tag where tag = ?",
+				new String[] { str });
 		if (cursor.moveToFirst()) {
 			do {
 				list.add(cursor.getString(cursor.getColumnIndex("tagname")));

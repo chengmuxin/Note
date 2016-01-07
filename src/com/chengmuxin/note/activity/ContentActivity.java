@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.Window;
 
 import com.chengmuxin.note.R;
@@ -29,6 +30,18 @@ public class ContentActivity extends Activity {
 		setContentView(R.layout.activity_content);
 		getFragmentManager().beginTransaction()
 				.replace(R.id.activity_content, new TextFragment()).commit();
+	}
+	
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if (keyCode == KeyEvent.KEYCODE_BACK){
+			if (findViewById(R.id.text_top)!=null) {
+				MainActivity.actionActivity(this);
+				this.finish();
+				return false;
+			}
+		}
+		return super.onKeyDown(keyCode, event);
 	}
 
 }

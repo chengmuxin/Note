@@ -8,20 +8,25 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ListView;
+import android.widget.AdapterView.OnItemClickListener;
 
 import com.chengmuxin.note.R;
 import com.chengmuxin.note.DB.NoteDB;
 import com.chengmuxin.note.model.Note;
+import com.chengmuxin.note.util.NoteAdapter;
 
 public class FindActivity extends Activity implements OnClickListener {
 	private NoteDB noteDB;
+	private ListView listView;
 	private List<Note> list;
+	private NoteAdapter adapter;
 	private EditText search;
 	private ImageButton back, clear;
 
@@ -40,24 +45,39 @@ public class FindActivity extends Activity implements OnClickListener {
 
 	private void init() {
 		noteDB = NoteDB.getInstance(this);
+		listView = (ListView) findViewById(R.id.find_list);
 		back = (ImageButton) findViewById(R.id.find_back);
 		back.setOnClickListener(this);
 		search = (EditText) findViewById(R.id.find_search);
 		search.addTextChangedListener(new TextWatcher() {
 			@Override
-			public void onTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
-			}
-			@Override
-			public void beforeTextChanged(CharSequence arg0, int arg1, int arg2,
+			public void onTextChanged(CharSequence arg0, int arg1, int arg2,
 					int arg3) {
 			}
+
+			@Override
+			public void beforeTextChanged(CharSequence arg0, int arg1,
+					int arg2, int arg3) {
+			}
+
 			@Override
 			public void afterTextChanged(Editable arg0) {
-				//≤È—Ø
+				// ≤È—Ø
 				list = noteDB.selectNoteWhereTitle(search.getText().toString());
+				adapter = new NoteAdapter(FindActivity.this, R.layout.activity_title, list);
+				listView.setAdapter(adapter);
+				listView.setOnItemClickListener(new OnItemClickListener() {
+					@Override
+					public void onItemClick(AdapterView<?> arg0, View view,
+							int position, long arg3) {
+						Note note = list.get(position);
+						ContentActivity.actionActivity(FindActivity.this, note);
+						FindActivity.this.finish();
+					}
+				});
 			}
 		});
-		clear=(ImageButton) findViewById(R.id.find_clear);
+		clear = (ImageButton) findViewById(R.id.find_clear);
 		clear.setVisibility(View.GONE);
 		clear.setOnClickListener(this);
 	}

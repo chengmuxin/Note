@@ -10,6 +10,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 
@@ -18,6 +19,7 @@ import com.chengmuxin.note.DB.NoteDB;
 import com.chengmuxin.note.activity.ContentActivity;
 import com.chengmuxin.note.activity.FindActivity;
 import com.chengmuxin.note.activity.NewActivity;
+import com.chengmuxin.note.dialog.MainOtherDialog;
 import com.chengmuxin.note.model.Note;
 import com.chengmuxin.note.util.NoteAdapter;
 
@@ -27,6 +29,7 @@ public class MainFragment extends Fragment implements OnClickListener {
 	private List<Note> list;
 	private NoteAdapter adapter;
 	private ImageButton find, add;
+	private Button other;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -63,6 +66,14 @@ public class MainFragment extends Fragment implements OnClickListener {
 		find.setOnClickListener(this);
 		add = (ImageButton) getActivity().findViewById(R.id.main_add);
 		add.setOnClickListener(this);
+		other = (Button) getActivity().findViewById(R.id.main_other);
+		other.setOnClickListener(this);
+	}
+	
+	private void refreshList(String str){
+		list = noteDB.selectNotes(str);
+		adapter = new NoteAdapter(getActivity(), R.layout.activity_title, list);
+		listView.setAdapter(adapter);
 	}
 
 	@Override
@@ -74,6 +85,10 @@ public class MainFragment extends Fragment implements OnClickListener {
 		case R.id.main_add:
 			NewActivity.actionActivity(getActivity());
 			break;
+		case R.id.main_other:
+			MainOtherDialog.actionActivity(getActivity());
+			break;
+		
 		default:
 			break;
 		}

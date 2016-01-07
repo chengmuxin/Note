@@ -19,6 +19,7 @@
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:background="#1C86EE"
+                android:contentDescription="@string/imagebutton"
                 android:src="@drawable/menu" />
 
             <TextView
@@ -41,6 +42,7 @@
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:background="#1C86EE"
+                android:contentDescription="@string/imagebutton"
                 android:src="@drawable/find" />
 
             <Button
@@ -67,6 +69,7 @@
         android:layout_gravity="bottom|right"
         android:layout_marginBottom="20dp"
         android:layout_marginRight="20dp"
-        android:background="@drawable/add" />
+        android:background="@drawable/add"
+        android:contentDescription="@string/imagebutton" />
 
 </FrameLayout>

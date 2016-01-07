@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    android:orientation="vertical"
+    android:padding="15dp" >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/order"
+        android:textColor="#000000"
+        android:textSize="20sp" />
+
+    <RadioGroup
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="100dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp" >
+
+        <RadioButton
+            android:id="@+id/dialog_main_other_order_bymodify"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/by_modify_time"
+            android:textColor="#000000" />
+
+        <RadioButton
+            android:id="@+id/dialog_main_other_order_bycreate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="@string/by_create_time"
+            android:textColor="#000000" />
+
+        <RadioButton
+            android:id="@+id/dialog_main_other_order_bytitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/by_title"
+            android:textColor="#000000" />
+
+        <RadioButton
+            android:id="@+id/dialog_main_other_order_bylocal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/by_local_time"
+            android:textColor="#000000" />
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/dialog_main_other_order_cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:background="#FFFFFF"
+        android:text="@string/cancel"
+        android:textColor="#008B00" />
+
+</LinearLayout>

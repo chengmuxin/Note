@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 public class TagAdapter extends ArrayAdapter<String> {
 	private int resource;
-	
+
 	public TagAdapter(Context context, int resource, List<String> list) {
 		super(context, resource, list);
 		this.resource = resource;
@@ -23,18 +23,19 @@ public class TagAdapter extends ArrayAdapter<String> {
 	public View getView(int position, View view, ViewGroup parent) {
 		ViewHolder viewHolder;
 		String str = getItem(position);
-		if(view == null){
+		if (view == null) {
 			view = LayoutInflater.from(getContext()).inflate(resource, null);
 			viewHolder = new ViewHolder();
-			viewHolder.tagname = (TextView) view.findViewById(R.id.taglist_tagname);
+			viewHolder.tagname = (TextView) view
+					.findViewById(R.id.taglist_tagname);
 			view.setTag(viewHolder);
-		}else{
+		} else {
 			viewHolder = (ViewHolder) view.getTag();
 		}
 		viewHolder.tagname.setText(str);
 		return view;
 	}
-	
+
 	class ViewHolder {
 		TextView tagname;
 	}
