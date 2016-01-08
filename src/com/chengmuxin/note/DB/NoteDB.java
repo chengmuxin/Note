@@ -76,11 +76,17 @@ public class NoteDB {
 							"select * from note order by createdate desc,createtime desc",
 							null);
 		} else if ("modify".equals(order)) {
-			cursor = db.rawQuery(
-					"select * from note order by modifydate,modifytime", null);
+			cursor = db
+					.rawQuery(
+							"select * from note order by modifydate desc,modifytime desc",
+							null);
 		} else if ("local".equals(order)) {
-			cursor = db.rawQuery(
-					"select * from note order by localdate,localtime", null);
+			cursor = db
+					.rawQuery(
+							"select * from note order by localdate desc,localtime desc",
+							null);
+		} else if ("title".equals(order)) {
+			cursor = db.rawQuery("select * from note order by title", null);
 		} else {
 			cursor = db.rawQuery("select * from note", null);
 		}

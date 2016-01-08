@@ -16,15 +16,16 @@ import android.widget.RadioButton;
 import com.chengmuxin.note.R;
 import com.chengmuxin.note.activity.MainActivity;
 
-public class MainOtherOrderDialog extends Activity implements OnClickListener,
+public class OrderDialog extends Activity implements OnClickListener,
 		OnCheckedChangeListener {
 	private SharedPreferences pref;
 	private SharedPreferences.Editor editor;
 	private RadioButton bymodify, bycreate, bytitle, bylocal;
 	private Button cancel;
+	private long lastClick;
 
 	public static void actionActivity(Context context) {
-		Intent intent = new Intent(context, MainOtherOrderDialog.class);
+		Intent intent = new Intent(context, OrderDialog.class);
 		context.startActivity(intent);
 	}
 
@@ -32,16 +33,17 @@ public class MainOtherOrderDialog extends Activity implements OnClickListener,
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
-		setContentView(R.layout.dialog_main_other_order);
+		setContentView(R.layout.dialog_order);
 		init();
 	}
 
 	private void init() {
 		pref = getSharedPreferences("NotePara", 0);
-		bymodify = (RadioButton) findViewById(R.id.dialog_main_other_order_bymodify);
-		bycreate = (RadioButton) findViewById(R.id.dialog_main_other_order_bycreate);
-		bytitle = (RadioButton) findViewById(R.id.dialog_main_other_order_bytitle);
-		bylocal = (RadioButton) findViewById(R.id.dialog_main_other_order_bylocal);
+		lastClick = System.currentTimeMillis();
+		bymodify = (RadioButton) findViewById(R.id.dialog_order_bymodify);
+		bycreate = (RadioButton) findViewById(R.id.dialog_order_bycreate);
+		bytitle = (RadioButton) findViewById(R.id.dialog_order_bytitle);
+		bylocal = (RadioButton) findViewById(R.id.dialog_order_bylocal);
 		bymodify.setOnCheckedChangeListener(this);
 		bycreate.setOnCheckedChangeListener(this);
 		bytitle.setOnCheckedChangeListener(this);
@@ -56,14 +58,14 @@ public class MainOtherOrderDialog extends Activity implements OnClickListener,
 		} else if ("local".equals(str)) {
 			bylocal.setChecked(true);
 		}
-		cancel = (Button) findViewById(R.id.dialog_main_other_order_cancel);
+		cancel = (Button) findViewById(R.id.dialog_order_cancel);
 		cancel.setOnClickListener(this);
 	}
 
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-		case R.id.dialog_main_other_order_cancel:
+		case R.id.dialog_order_cancel:
 			MainActivity.actionActivity(this);
 			this.finish();
 			break;
@@ -78,24 +80,26 @@ public class MainOtherOrderDialog extends Activity implements OnClickListener,
 		if (isChecked) {
 			editor = pref.edit();
 			switch (b.getId()) {
-			case R.id.dialog_main_other_order_bymodify:
+			case R.id.dialog_order_bymodify:
 				editor.putString("order", "modify");
 				break;
-			case R.id.dialog_main_other_order_bycreate:
+			case R.id.dialog_order_bycreate:
 				editor.putString("order", "create");
 				break;
-			case R.id.dialog_main_other_order_bytitle:
+			case R.id.dialog_order_bytitle:
 				editor.putString("order", "title");
 				break;
-			case R.id.dialog_main_other_order_bylocal:
+			case R.id.dialog_order_bylocal:
 				editor.putString("order", "local");
 				break;
 			default:
 				break;
 			}
 			editor.commit();
+			if (System.currentTimeMillis() - lastClick > 100) {
+				MainActivity.actionActivity(this);
+				OrderDialog.this.finish();
+			}
 		}
-		MainActivity.actionActivity(this);
-		this.finish();
 	}
 }

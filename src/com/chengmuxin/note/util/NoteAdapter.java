@@ -3,6 +3,7 @@ package com.chengmuxin.note.util;
 import java.util.List;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,10 +14,13 @@ import com.chengmuxin.note.R;
 import com.chengmuxin.note.model.Note;
 
 public class NoteAdapter extends ArrayAdapter<Note> {
+	private SharedPreferences pref;
+	private Context context;
 	private int resource;
 
 	public NoteAdapter(Context context, int resource, List<Note> list) {
 		super(context, resource, list);
+		this.context = context;
 		this.resource = resource;
 	}
 
@@ -37,11 +41,29 @@ public class NoteAdapter extends ArrayAdapter<Note> {
 			viewHolder = (ViewHolder) view.getTag();
 		}
 		viewHolder.title.setText(note.getTitle());
-		if (TimeUtil.getDate().equals(note.getCreatedate())) {
-			viewHolder.time.setText(note.getCreatetime());
-		} else {
-			viewHolder.time.setText(note.getCreatedate());
+		//œ‘ æ ±º‰
+		pref = context.getSharedPreferences("NotePara", 0);
+		String str = pref.getString("order", "");
+		if("modify".equals(str)){
+			if (TimeUtil.getDate().equals(note.getModifydate())) {
+				viewHolder.time.setText(note.getModifytime());
+			} else {
+				viewHolder.time.setText(note.getModifydate());
+			}
+		}else if ("local".equals(str)) {
+			if (TimeUtil.getDate().equals(note.getLocaldate())) {
+				viewHolder.time.setText(note.getLocaltime());
+			} else {
+				viewHolder.time.setText(note.getLocaldate());
+			}
+		}else{
+			if (TimeUtil.getDate().equals(note.getCreatedate())) {
+				viewHolder.time.setText(note.getCreatetime());
+			} else {
+				viewHolder.time.setText(note.getCreatedate());
+			}
 		}
+		
 		viewHolder.tag.setText(note.getTag());
 		viewHolder.content.setText(note.getContent());
 		return view;

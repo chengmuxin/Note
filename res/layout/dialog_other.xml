@@ -10,19 +10,19 @@
     android:orientation="vertical" >
 
     <Button
-        android:id="@+id/dialog_main_other_order"
+        android:id="@+id/dialog_other_order"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
-        android:textSize="20sp"
+        android:textSize="18sp"
         android:background="#FFFFFF"
         android:gravity="left|center_vertical"
         android:text="@string/order" />
 
     <Button
-        android:id="@+id/dialog_main_other_options"
+        android:id="@+id/dialog_other_options"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
-        android:textSize="20sp"
+        android:textSize="18sp"
         android:background="#FFFFFF"
         android:gravity="left|center_vertical"
         android:text="@string/options" />

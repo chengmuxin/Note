@@ -68,34 +68,7 @@ public class TextFragment extends Fragment implements OnClickListener {
 		bottom = (LinearLayout) getActivity().findViewById(R.id.text_bottom);
 		bottom.setVisibility(View.VISIBLE);
 		scroll = (ScrollView) getActivity().findViewById(R.id.text_scroll);
-		scroll.setOnTouchListener(new OnTouchListener() {
-			@Override
-			public boolean onTouch(View v, MotionEvent ev) {
-				switch (ev.getAction()) {
-				case MotionEvent.ACTION_DOWN:
-					down.x = (int) ev.getX();
-					down.y = (int) ev.getY();
-					break;
-				case MotionEvent.ACTION_MOVE:
-					break;
-				case MotionEvent.ACTION_UP:
-					up.x = (int) ev.getX();
-					up.y = (int) ev.getY();
-					if (up.y > down.y) { // 向下滑动
-						top.setVisibility(View.VISIBLE);
-						bottom.setVisibility(View.VISIBLE);
-					} else { // 向上滑动
-						top.setVisibility(View.GONE);
-						bottom.setVisibility(View.GONE);
-					}
-					break;
-
-				default:
-					break;
-				}
-				return false;
-			}
-		});
+		scroll.setOnTouchListener(new MyOnTouchListener());
 	}
 
 	@Override
@@ -137,4 +110,37 @@ public class TextFragment extends Fragment implements OnClickListener {
 		}
 	}
 
+	/**
+	 * 滑动方法内部类
+	 * @author Administrator
+	 * 
+	 */
+	private class MyOnTouchListener implements OnTouchListener {
+		@Override
+		public boolean onTouch(View v, MotionEvent ev) {
+			switch (ev.getAction()) {
+			case MotionEvent.ACTION_DOWN:
+				down.x = (int) ev.getX();
+				down.y = (int) ev.getY();
+				break;
+			case MotionEvent.ACTION_MOVE:
+				break;
+			case MotionEvent.ACTION_UP:
+				up.x = (int) ev.getX();
+				up.y = (int) ev.getY();
+				if (up.y > down.y) { // 向下滑动
+					top.setVisibility(View.VISIBLE);
+					bottom.setVisibility(View.VISIBLE);
+				} else { // 向上滑动
+					top.setVisibility(View.GONE);
+					bottom.setVisibility(View.GONE);
+				}
+				break;
+
+			default:
+				break;
+			}
+			return false;
+		}
+	}
 }

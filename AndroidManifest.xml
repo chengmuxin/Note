@@ -32,11 +32,15 @@
         <activity android:name=".activity.FindActivity" >
         </activity>
         <activity
-            android:name=".dialog.MainOtherDialog"
+            android:name=".dialog.OtherDialog"
             android:theme="@android:style/Theme.Dialog" >
         </activity>
         <activity
-            android:name=".dialog.MainOtherOrderDialog"
+            android:name=".dialog.OrderDialog"
+            android:theme="@android:style/Theme.Dialog" >
+        </activity>
+        <activity
+            android:name=".dialog.OptionsDialog"
             android:theme="@android:style/Theme.Dialog" >
         </activity>
     </application>

@@ -20,7 +20,7 @@ import android.widget.ListView;
 
 import com.chengmuxin.note.R;
 import com.chengmuxin.note.DB.NoteDB;
-import com.chengmuxin.note.dialog.MainOtherDialog;
+import com.chengmuxin.note.dialog.OtherDialog;
 import com.chengmuxin.note.model.Note;
 import com.chengmuxin.note.util.NoteAdapter;
 
@@ -75,7 +75,7 @@ public class FindActivity extends Activity implements OnClickListener {
 			listView.setAdapter(adapter);
 			break;
 		case R.id.find_other:
-			MainOtherDialog.actionActivity(this);
+			OtherDialog.actionActivity(this);
 			break;
 		default:
 			break;

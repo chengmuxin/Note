@@ -20,7 +20,7 @@ import com.chengmuxin.note.DB.NoteDB;
 import com.chengmuxin.note.activity.ContentActivity;
 import com.chengmuxin.note.activity.FindActivity;
 import com.chengmuxin.note.activity.NewActivity;
-import com.chengmuxin.note.dialog.MainOtherDialog;
+import com.chengmuxin.note.dialog.OtherDialog;
 import com.chengmuxin.note.model.Note;
 import com.chengmuxin.note.util.NoteAdapter;
 
@@ -88,7 +88,7 @@ public class MainFragment extends Fragment implements OnClickListener {
 			NewActivity.actionActivity(getActivity());
 			break;
 		case R.id.main_other:
-			MainOtherDialog.actionActivity(getActivity());
+			OtherDialog.actionActivity(getActivity());
 			break;
 		
 		default:

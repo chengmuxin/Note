@@ -21,14 +21,14 @@
         android:layout_marginTop="10dp" >
 
         <RadioButton
-            android:id="@+id/dialog_main_other_order_bymodify"
+            android:id="@+id/dialog_order_bymodify"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/by_modify_time"
             android:textColor="#000000" />
 
         <RadioButton
-            android:id="@+id/dialog_main_other_order_bycreate"
+            android:id="@+id/dialog_order_bycreate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:checked="true"
@@ -36,14 +36,14 @@
             android:textColor="#000000" />
 
         <RadioButton
-            android:id="@+id/dialog_main_other_order_bytitle"
+            android:id="@+id/dialog_order_bytitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/by_title"
             android:textColor="#000000" />
 
         <RadioButton
-            android:id="@+id/dialog_main_other_order_bylocal"
+            android:id="@+id/dialog_order_bylocal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/by_local_time"
@@ -51,7 +51,7 @@
     </RadioGroup>
 
     <Button
-        android:id="@+id/dialog_main_other_order_cancel"
+        android:id="@+id/dialog_order_cancel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="right"

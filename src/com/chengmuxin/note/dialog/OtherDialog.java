@@ -10,17 +10,14 @@ import android.view.View.OnClickListener;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.chengmuxin.note.R;
-import com.chengmuxin.note.activity.NewActivity;
-import com.chengmuxin.note.activity.TagActivity;
 
-public class MainOtherDialog extends Activity implements OnClickListener {
+public class OtherDialog extends Activity implements OnClickListener {
 	private Button order, options;
 
 	public static void actionActivity(Context context) {
-		Intent intent = new Intent(context, MainOtherDialog.class);
+		Intent intent = new Intent(context, OtherDialog.class);
 		context.startActivity(intent);
 	}
 	
@@ -28,7 +25,7 @@ public class MainOtherDialog extends Activity implements OnClickListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
-		setContentView(R.layout.dialog_main_other);
+		setContentView(R.layout.dialog_other);
 		WindowManager.LayoutParams lp = getWindow().getAttributes();
 		lp.gravity = Gravity.RIGHT;
 		lp.y = -1000;
@@ -37,22 +34,22 @@ public class MainOtherDialog extends Activity implements OnClickListener {
 	}
 
 	private void init() {
-		order = (Button) findViewById(R.id.dialog_main_other_order);
+		order = (Button) findViewById(R.id.dialog_other_order);
 		order.setOnClickListener(this);
-		options = (Button) findViewById(R.id.dialog_main_other_options);
+		options = (Button) findViewById(R.id.dialog_other_options);
 		options.setOnClickListener(this);
 	}
 
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-		case R.id.dialog_main_other_order:
-//			MainOtherOrderDialog.actionActivity(this);
-			NewActivity.actionActivity(this);
+		case R.id.dialog_other_order:
+			OrderDialog.actionActivity(this);
 			this.finish();
 			break;
-		case R.id.dialog_main_other_options:
-			Toast.makeText(this, "options", Toast.LENGTH_SHORT).show();
+		case R.id.dialog_other_options:
+			OptionsDialog.actionActivity(this);
+			this.finish();
 			break;
 
 		default:

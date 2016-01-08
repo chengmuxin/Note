@@ -22,5 +22,7 @@
     <string name="by_title">按标题</string>
     <string name="by_local_time">按本地访问时间</string>
     <string name="cancel">取消</string>
+    <string name="OK">确定</string>
+    <string name="summary">摘要</string>
 
 </resources>

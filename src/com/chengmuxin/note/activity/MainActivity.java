@@ -12,7 +12,7 @@ import com.chengmuxin.note.R;
 import com.chengmuxin.note.Fragment.MainFragment;
 
 public class MainActivity extends Activity {
-	long lastClick;
+	private long lastClick;
 
 	public static void actionActivity(Context context) {
 		Intent intent = new Intent(context, MainActivity.class);
