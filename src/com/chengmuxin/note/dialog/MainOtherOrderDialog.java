@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
@@ -38,7 +37,7 @@ public class MainOtherOrderDialog extends Activity implements OnClickListener,
 	}
 
 	private void init() {
-		pref = PreferenceManager.getDefaultSharedPreferences(this);
+		pref = getSharedPreferences("NotePara", 0);
 		bymodify = (RadioButton) findViewById(R.id.dialog_main_other_order_bymodify);
 		bycreate = (RadioButton) findViewById(R.id.dialog_main_other_order_bycreate);
 		bytitle = (RadioButton) findViewById(R.id.dialog_main_other_order_bytitle);
@@ -47,15 +46,14 @@ public class MainOtherOrderDialog extends Activity implements OnClickListener,
 		bycreate.setOnCheckedChangeListener(this);
 		bytitle.setOnCheckedChangeListener(this);
 		bylocal.setOnCheckedChangeListener(this);
-		String str = pref.getString("order", "").toString();
-		System.out.println("51"+str);
-		if("modify".equals(str)){
+		String str = pref.getString("order", "");
+		if ("modify".equals(str)) {
 			bymodify.setChecked(true);
-		}else if("create".equals(str)){
+		} else if ("create".equals(str)) {
 			bycreate.setChecked(true);
-		}else if("title".equals(str)){
+		} else if ("title".equals(str)) {
 			bytitle.setChecked(true);
-		}else if("local".equals(str)){
+		} else if ("local".equals(str)) {
 			bylocal.setChecked(true);
 		}
 		cancel = (Button) findViewById(R.id.dialog_main_other_order_cancel);
@@ -76,28 +74,27 @@ public class MainOtherOrderDialog extends Activity implements OnClickListener,
 	}
 
 	@Override
-	public void onCheckedChanged(CompoundButton b, boolean arg1) {
-		editor = pref.edit();
-		switch (b.getId()) {
-		case R.id.dialog_main_other_order_bymodify:
-			editor.putString("order", "modify");
-			break;
-		case R.id.dialog_main_other_order_bycreate:
-			editor.putString("order", "create");
-			break;
-		case R.id.dialog_main_other_order_bytitle:
-			editor.putString("order", "title");
-			break;
-		case R.id.dialog_main_other_order_bylocal:
-			editor.putString("order", "local");
-			break;
-
-		default:
-			break;
+	public void onCheckedChanged(CompoundButton b, boolean isChecked) {
+		if (isChecked) {
+			editor = pref.edit();
+			switch (b.getId()) {
+			case R.id.dialog_main_other_order_bymodify:
+				editor.putString("order", "modify");
+				break;
+			case R.id.dialog_main_other_order_bycreate:
+				editor.putString("order", "create");
+				break;
+			case R.id.dialog_main_other_order_bytitle:
+				editor.putString("order", "title");
+				break;
+			case R.id.dialog_main_other_order_bylocal:
+				editor.putString("order", "local");
+				break;
+			default:
+				break;
+			}
+			editor.commit();
 		}
-		editor.commit();
-		String str = pref.getString("order", "").toString();
-		System.out.println("100"+str);
 		MainActivity.actionActivity(this);
 		this.finish();
 	}

@@ -12,13 +12,15 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
-import android.widget.AdapterView.OnItemClickListener;
 
 import com.chengmuxin.note.R;
 import com.chengmuxin.note.DB.NoteDB;
+import com.chengmuxin.note.dialog.MainOtherDialog;
 import com.chengmuxin.note.model.Note;
 import com.chengmuxin.note.util.NoteAdapter;
 
@@ -29,6 +31,7 @@ public class FindActivity extends Activity implements OnClickListener {
 	private NoteAdapter adapter;
 	private EditText search;
 	private ImageButton back, clear;
+	private Button other;
 
 	public static void actionActivity(Context context) {
 		Intent intent = new Intent(context, FindActivity.class);
@@ -49,37 +52,12 @@ public class FindActivity extends Activity implements OnClickListener {
 		back = (ImageButton) findViewById(R.id.find_back);
 		back.setOnClickListener(this);
 		search = (EditText) findViewById(R.id.find_search);
-		search.addTextChangedListener(new TextWatcher() {
-			@Override
-			public void onTextChanged(CharSequence arg0, int arg1, int arg2,
-					int arg3) {
-			}
-
-			@Override
-			public void beforeTextChanged(CharSequence arg0, int arg1,
-					int arg2, int arg3) {
-			}
-
-			@Override
-			public void afterTextChanged(Editable arg0) {
-				// ≤È—Ø
-				list = noteDB.selectNoteWhereTitle(search.getText().toString());
-				adapter = new NoteAdapter(FindActivity.this, R.layout.activity_title, list);
-				listView.setAdapter(adapter);
-				listView.setOnItemClickListener(new OnItemClickListener() {
-					@Override
-					public void onItemClick(AdapterView<?> arg0, View view,
-							int position, long arg3) {
-						Note note = list.get(position);
-						ContentActivity.actionActivity(FindActivity.this, note);
-						FindActivity.this.finish();
-					}
-				});
-			}
-		});
+		search.addTextChangedListener(new MyTextWatcher());
 		clear = (ImageButton) findViewById(R.id.find_clear);
 		clear.setVisibility(View.GONE);
 		clear.setOnClickListener(this);
+		other = (Button) findViewById(R.id.find_other);
+		other.setOnClickListener(this);
 	}
 
 	@Override
@@ -92,10 +70,53 @@ public class FindActivity extends Activity implements OnClickListener {
 		case R.id.find_clear:
 			search.setText("");
 			clear.setVisibility(View.GONE);
-			//
+			list.clear();
+			adapter = new NoteAdapter(FindActivity.this, R.layout.activity_title, list);
+			listView.setAdapter(adapter);
+			break;
+		case R.id.find_other:
+			MainOtherDialog.actionActivity(this);
 			break;
 		default:
 			break;
+		}
+	}
+	
+	private class MyTextWatcher implements TextWatcher{
+		@Override
+		public void onTextChanged(CharSequence arg0, int arg1, int arg2,
+				int arg3) {
+		}
+
+		@Override
+		public void beforeTextChanged(CharSequence arg0, int arg1,
+				int arg2, int arg3) {
+		}
+
+		@Override
+		public void afterTextChanged(Editable arg0) {
+			if (!search.getText().toString().equals("")) {
+				clear.setVisibility(View.VISIBLE);
+				// ≤È—Ølist
+				list = noteDB.selectNoteWhereTitle(search.getText().toString());
+				adapter = new NoteAdapter(FindActivity.this, R.layout.activity_title, list);
+				listView.setAdapter(adapter);
+				listView.setOnItemClickListener(new OnItemClickListener() {
+					@Override
+					public void onItemClick(AdapterView<?> arg0, View view,
+							int position, long arg3) {
+						Note note = list.get(position);
+						ContentActivity.actionActivity(FindActivity.this, note);
+						FindActivity.this.finish();
+					}
+				});
+			}else{
+				clear.setVisibility(View.GONE);
+				list.clear();
+				adapter = new NoteAdapter(FindActivity.this, R.layout.activity_title, list);
+				listView.setAdapter(adapter);
+			}
+			
 		}
 	}
 }

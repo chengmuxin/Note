@@ -3,6 +3,7 @@ package com.chengmuxin.note.Fragment;
 import java.util.List;
 
 import android.app.Fragment;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,6 +29,7 @@ public class MainFragment extends Fragment implements OnClickListener {
 	private ListView listView;
 	private List<Note> list;
 	private NoteAdapter adapter;
+	private SharedPreferences pref;
 	private ImageButton find, add;
 	private Button other;
 
@@ -46,9 +48,8 @@ public class MainFragment extends Fragment implements OnClickListener {
 	@Override
 	public void onResume() {
 		super.onResume();
-		list = noteDB.selectNotes("create");
-		adapter = new NoteAdapter(getActivity(), R.layout.activity_title, list);
-		listView.setAdapter(adapter);
+		String str = pref.getString("order", "");
+		refreshList(str);
 		listView.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View view,
@@ -61,6 +62,7 @@ public class MainFragment extends Fragment implements OnClickListener {
 
 	private void init() {
 		noteDB = NoteDB.getInstance(getActivity());
+		pref = getActivity().getSharedPreferences("NotePara", 0);
 		listView = (ListView) getActivity().findViewById(R.id.main_list);
 		find = (ImageButton) getActivity().findViewById(R.id.main_find);
 		find.setOnClickListener(this);

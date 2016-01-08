@@ -13,6 +13,8 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.chengmuxin.note.R;
+import com.chengmuxin.note.activity.NewActivity;
+import com.chengmuxin.note.activity.TagActivity;
 
 public class MainOtherDialog extends Activity implements OnClickListener {
 	private Button order, options;
@@ -45,7 +47,8 @@ public class MainOtherDialog extends Activity implements OnClickListener {
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.dialog_main_other_order:
-			MainOtherOrderDialog.actionActivity(this);
+//			MainOtherOrderDialog.actionActivity(this);
+			NewActivity.actionActivity(this);
 			this.finish();
 			break;
 		case R.id.dialog_main_other_options:
