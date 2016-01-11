@@ -205,16 +205,13 @@ public class NoteDB {
 	/**
 	 * ²éÑ¯TagĞÅÏ¢
 	 */
-	public List<String> selectTagWhereTag(String str) {
-		List<String> list = new ArrayList<String>();
-		Cursor cursor = db.rawQuery("select * from tag where tag = ?",
+	public Boolean selectTagWhereTag(String str) {
+		Cursor cursor = db.rawQuery("select * from tag where tagname = ?",
 				new String[] { str });
-		if (cursor.moveToFirst()) {
-			do {
-				list.add(cursor.getString(cursor.getColumnIndex("tagname")));
-			} while (cursor.moveToNext());
+		if (cursor.getCount() > 0) {
+			return true;
 		}
-		return list;
+		return false;
 	}
 
 }

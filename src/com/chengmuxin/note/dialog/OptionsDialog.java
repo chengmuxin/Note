@@ -12,7 +12,6 @@ import android.widget.Button;
 import android.widget.CheckBox;
 
 import com.chengmuxin.note.R;
-import com.chengmuxin.note.activity.MainActivity;
 
 public class OptionsDialog extends Activity implements OnClickListener {
 	private SharedPreferences pref;
@@ -36,7 +35,7 @@ public class OptionsDialog extends Activity implements OnClickListener {
 	private void init() {
 		pref = getSharedPreferences("NotePara", 0);
 		bysummary = (CheckBox) findViewById(R.id.dialog_options_bysummary);
-		bysummary.setChecked(pref.getBoolean("summary", false));
+		bysummary.setChecked(pref.getBoolean("summary", true));
 		cancel = (Button) findViewById(R.id.dialog_options_cancel);
 		cancel.setOnClickListener(this);
 		ok = (Button) findViewById(R.id.dialog_options_ok);
@@ -47,15 +46,13 @@ public class OptionsDialog extends Activity implements OnClickListener {
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.dialog_options_cancel:
-			MainActivity.actionActivity(this);
 			this.finish();
 			break;
 		case R.id.dialog_options_ok:
-			//将选项状态储存
+			// 将选项状态储存
 			editor = pref.edit();
 			editor.putBoolean("summary", bysummary.isChecked());
 			editor.commit();
-			MainActivity.actionActivity(this);
 			this.finish();
 			break;
 

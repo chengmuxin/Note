@@ -84,7 +84,9 @@ public class TagActivity extends Activity implements OnClickListener {
 		case R.id.tag_add:
 			String tagStr = edit.getText().toString();
 			if (tagStr != null) {
-				noteDB.insertTag(tagStr);
+				if (!noteDB.selectTagWhereTag(tagStr)) {
+					noteDB.insertTag(tagStr);
+				}
 				tag = tagStr;
 				myTag.setText(tagStr);
 				myTag.setVisibility(View.VISIBLE);

@@ -14,7 +14,6 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.RadioButton;
 
 import com.chengmuxin.note.R;
-import com.chengmuxin.note.activity.MainActivity;
 
 public class OrderDialog extends Activity implements OnClickListener,
 		OnCheckedChangeListener {
@@ -66,7 +65,6 @@ public class OrderDialog extends Activity implements OnClickListener,
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.dialog_order_cancel:
-			MainActivity.actionActivity(this);
 			this.finish();
 			break;
 
@@ -97,7 +95,6 @@ public class OrderDialog extends Activity implements OnClickListener,
 			}
 			editor.commit();
 			if (System.currentTimeMillis() - lastClick > 100) {
-				MainActivity.actionActivity(this);
 				OrderDialog.this.finish();
 			}
 		}

@@ -40,31 +40,35 @@ public class NoteAdapter extends ArrayAdapter<Note> {
 		} else {
 			viewHolder = (ViewHolder) view.getTag();
 		}
-		viewHolder.title.setText(note.getTitle());
-		//显示时间
+		// 查询参数表
 		pref = context.getSharedPreferences("NotePara", 0);
+		viewHolder.title.setText(note.getTitle());
+		// 显示时间
 		String str = pref.getString("order", "");
-		if("modify".equals(str)){
+		if ("modify".equals(str)) {
 			if (TimeUtil.getDate().equals(note.getModifydate())) {
 				viewHolder.time.setText(note.getModifytime());
 			} else {
 				viewHolder.time.setText(note.getModifydate());
 			}
-		}else if ("local".equals(str)) {
+		} else if ("local".equals(str)) {
 			if (TimeUtil.getDate().equals(note.getLocaldate())) {
 				viewHolder.time.setText(note.getLocaltime());
 			} else {
 				viewHolder.time.setText(note.getLocaldate());
 			}
-		}else{
+		} else {
 			if (TimeUtil.getDate().equals(note.getCreatedate())) {
 				viewHolder.time.setText(note.getCreatetime());
 			} else {
 				viewHolder.time.setText(note.getCreatedate());
 			}
 		}
-		
 		viewHolder.tag.setText(note.getTag());
+		Boolean b = pref.getBoolean("summary", true);
+		if (!b) {
+			viewHolder.content.setVisibility(View.GONE);
+		}
 		viewHolder.content.setText(note.getContent());
 		return view;
 	}

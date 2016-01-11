@@ -61,6 +61,15 @@ public class FindActivity extends Activity implements OnClickListener {
 	}
 
 	@Override
+	protected void onResume() {
+		super.onResume();
+		list = noteDB.selectNoteWhereTitle(search.getText().toString());
+		adapter = new NoteAdapter(FindActivity.this, R.layout.activity_title,
+				list);
+		listView.setAdapter(adapter);
+	}
+
+	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.find_back:
@@ -71,7 +80,8 @@ public class FindActivity extends Activity implements OnClickListener {
 			search.setText("");
 			clear.setVisibility(View.GONE);
 			list.clear();
-			adapter = new NoteAdapter(FindActivity.this, R.layout.activity_title, list);
+			adapter = new NoteAdapter(FindActivity.this,
+					R.layout.activity_title, list);
 			listView.setAdapter(adapter);
 			break;
 		case R.id.find_other:
@@ -81,16 +91,16 @@ public class FindActivity extends Activity implements OnClickListener {
 			break;
 		}
 	}
-	
-	private class MyTextWatcher implements TextWatcher{
+
+	private class MyTextWatcher implements TextWatcher {
 		@Override
 		public void onTextChanged(CharSequence arg0, int arg1, int arg2,
 				int arg3) {
 		}
 
 		@Override
-		public void beforeTextChanged(CharSequence arg0, int arg1,
-				int arg2, int arg3) {
+		public void beforeTextChanged(CharSequence arg0, int arg1, int arg2,
+				int arg3) {
 		}
 
 		@Override
@@ -99,7 +109,8 @@ public class FindActivity extends Activity implements OnClickListener {
 				clear.setVisibility(View.VISIBLE);
 				// ≤È—Ølist
 				list = noteDB.selectNoteWhereTitle(search.getText().toString());
-				adapter = new NoteAdapter(FindActivity.this, R.layout.activity_title, list);
+				adapter = new NoteAdapter(FindActivity.this,
+						R.layout.activity_title, list);
 				listView.setAdapter(adapter);
 				listView.setOnItemClickListener(new OnItemClickListener() {
 					@Override
@@ -110,13 +121,14 @@ public class FindActivity extends Activity implements OnClickListener {
 						FindActivity.this.finish();
 					}
 				});
-			}else{
+			} else {
 				clear.setVisibility(View.GONE);
 				list.clear();
-				adapter = new NoteAdapter(FindActivity.this, R.layout.activity_title, list);
+				adapter = new NoteAdapter(FindActivity.this,
+						R.layout.activity_title, list);
 				listView.setAdapter(adapter);
 			}
-			
+
 		}
 	}
 }
